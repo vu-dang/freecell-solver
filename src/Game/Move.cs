@@ -48,15 +48,20 @@ namespace FreeCellSolver.Game
             switch (Type)
             {
                 case MoveType.TableauToFoundation:
-                    return $"{From}h";
+                    return $" ";
+                    //return $"{From}h";
                 case MoveType.TableauToReserve:
-                    return $"{From}{r[To]}";
+                    return "_";
+                    //return $"{From}{r[To]}";
                 case MoveType.TableauToTableau:
-                    return $"{From}{To}{{{Size}}}";
+                    return "_";
+                    //return $"{From}{To}{{{Size}}}";
                 case MoveType.ReserveToFoundation:
-                    return $"{r[From]}h";
+                    return $" ";
+                    //return $"{r[From]}h";
                 case MoveType.ReserveToTableau:
-                    return $"{r[From]}{To}";
+                    return "_";
+                    //return $"{r[From]}{To}";
             }
 
             Debug.Assert(false);

@@ -371,3 +371,5 @@ boards.bin
 solver-benchmarks.txt
 
 decoder/
+._*
+src/.DS_Store

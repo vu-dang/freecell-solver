@@ -112,7 +112,7 @@ namespace FreeCellSolver.Solvers
                     return false;
                 }
             } while (Interlocked.CompareExchange(ref _threadCount, newThreadCount, currentThreadCount) != currentThreadCount);
-            ThreadPool.UnsafeQueueUserWorkItem(_ => Search(root), null);
+            ThreadPool.QueueUserWorkItem (_ => Search(root), null);
             return true;
         }
 

@@ -155,6 +155,20 @@ namespace FreeCellSolver.Entry
             }
         }
 
+        public static string RunSolver(int dealNum)
+        {
+            var b = Board.FromDealNum(dealNum);
+            var result = Execute(null, dealNum, b, false);
+            if (result.IsSolved)
+            {
+                return string.Join("", result.GoalNode.GetMoves().Select(m => m.ToString()));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         static void RunSingle(int dealNum, string visualizePath)
         {
             var b = Board.FromDealNum(dealNum);
@@ -201,16 +215,22 @@ namespace FreeCellSolver.Entry
 
         static Result Execute(TextWriter writer, int deal, Board b, bool writeToLog)
         {
-            Console.Write($"Processing deal #{deal}");
+            if (writer != null)
+            {
+                Console.Write($"Processing deal #{deal}");
+            }
             _sw.Restart();
-            var result = AStar.Run(b);
+            var result = AStar.Run(b,32);
             _sw.Stop();
             GC.Collect();
-            Console.WriteLine(". Done");
-            var elapsedTicks = (10000000 * _sw.ElapsedTicks / Stopwatch.Frequency).ToString("0000000000000");
-            writer.Write($"{(result.IsSolved ? "Done" : "Bailed")} in {(writeToLog ? elapsedTicks : _sw.Elapsed)} - threads: {result.Threads} - visited nodes: {result.VisitedNodes,0:n0}");
-            writer.WriteLine(result.IsSolved ? $" - #moves: {result.GoalNode.MoveCount}" : " - #moves: 0");
-            writer.Flush();
+            if (writer != null)
+            {
+                Console.WriteLine(". Done");
+                var elapsedTicks = (10000000 * _sw.ElapsedTicks / Stopwatch.Frequency).ToString("0000000000000");
+                writer.Write($"{(result.IsSolved ? "Done" : "Bailed")} in {(writeToLog ? elapsedTicks : _sw.Elapsed)} - threads: {result.Threads} - visited nodes: {result.VisitedNodes,0:n0}");
+                writer.WriteLine(result.IsSolved ? $" - #moves: {result.GoalNode.MoveCount}" : " - #moves: 0");
+                writer.Flush();
+            }
             return result;
         }
 
