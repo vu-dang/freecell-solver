@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="visualizer\dist\**" />
+    <EmbeddedResource Remove="visualizer\dist\**" />
+    <None Remove="visualizer\dist\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
   </ItemGroup>
@@ -23,8 +29,6 @@
     <EmbeddedResource Include="assets\bg.jpg" />
     <EmbeddedResource Include="assets\deck.png" />
     <EmbeddedResource Include="assets\empty.png" />
-    <EmbeddedResource Include="visualizer\dist\index.min.js" />
-    <EmbeddedResource Include="visualizer\dist\visualizer.min.html" />
   </ItemGroup>
 
 </Project>
